@@ -26,17 +26,34 @@ double scatter_view_loop(Kokkos::View<int**> v,
 
 // Scatter Add algorithm using atomics
 double atomic_loop(Kokkos::View<int**> v, 
-		 Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
-  Kokkos::Timer timer;
-  // Run Atomic Loop not r is already using atomics by default
-  Kokkos::parallel_for("Atomic Loop", v.extent(0), 
-    KOKKOS_LAMBDA(const int i) {
-    for(int j=0; j<v.extent(1); j++)
-      r(v(i,j))++;
-  });
-  // Wait for Kernel to finish before timing
-  Kokkos::fence();
-  return timer.seconds();
+  Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
+Kokkos::Timer timer;
+// Run Atomic Loop not r is already using atomics by default
+Kokkos::parallel_for("Atomic Loop", v.extent(0), 
+ KOKKOS_LAMBDA(const int i) {
+ for(int j=0; j<v.extent(1); j++)
+   r(v(i,j))++;
+});
+// Wait for Kernel to finish before timing
+Kokkos::fence();
+return timer.seconds();
+}
+
+// Scatter Add algorithm using atomic add
+double atomic_add_loop(Kokkos::View<int**> v, 
+  Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
+Kokkos::Timer timer;
+Kokkos::View<int*> counter("counter", 1);
+// Run Atomic Loop not r is already using atomics by default
+Kokkos::parallel_for("Atomic Loop", v.extent(0), 
+ KOKKOS_LAMBDA(const int i) {
+ for(int j=0; j<v.extent(1); j++)
+   Kokkos::atomic_add(counter(0),1);
+   r(v(i,j))++;
+});
+// Wait for Kernel to finish before timing
+Kokkos::fence();
+return timer.seconds();
 }
 
 int main(int argc, char* argv[]) {
