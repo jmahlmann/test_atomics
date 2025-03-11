@@ -49,7 +49,7 @@ Kokkos::View<int*> counter {"counter", 1};
 Kokkos::parallel_for("Atomic Loop", v.extent(0), 
  KOKKOS_LAMBDA(const int i) {
  for(int j=0; j<v.extent(1); j++)
-   Kokkos::atomic_fetch_add(counter(0),1);
+ const auto idx     = Kokkos::atomic_fetch_add(counter(0),1);
    r(v(i,j))++;
 });
 // Wait for Kernel to finish before timing
