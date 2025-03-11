@@ -50,7 +50,10 @@ Kokkos::deep_copy(counter,0);
 Kokkos::parallel_for("Atomic Loop", v.extent(0), 
  KOKKOS_LAMBDA(const int i) {
  for(int j=0; j<v.extent(1); j++) {
-  const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
+  if (j%5==0)
+  {
+    const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
+  }
    r(v(i,j))++;
  }
 });
