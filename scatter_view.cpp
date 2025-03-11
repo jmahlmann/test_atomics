@@ -46,7 +46,7 @@ double atomic_addif_loop(Kokkos::View<int**> v,
 Kokkos::Timer timer;
 Kokkos::View<long int*> counter("Counter",1);
 Kokkos::parallel_for("Atomic Loop", 1000000, 
- KOKKOS_LAMBDA(const long int i) {
+ KOKKOS_LAMBDA(const int i) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
 });
 // Wait for Kernel to finish before timing
