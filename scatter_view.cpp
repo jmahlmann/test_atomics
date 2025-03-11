@@ -65,8 +65,8 @@ int main(int argc, char* argv[]) {
   Kokkos::initialize(argc,argv);
   {
 
-    int N = argc > 1?atoi(argv[1]):100000;
-    int M = argc > 2?atoi(argv[2]):100000;
+    int N = argc > 1?atoi(argv[1]):10000;
+    int M = argc > 2?atoi(argv[2]):10000;
 
     Kokkos::View<int**> values("V",N,M);
     Kokkos::View<int*> results("R",N);
