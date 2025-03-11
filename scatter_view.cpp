@@ -45,16 +45,15 @@ double atomic_add_loop(Kokkos::View<int**> v,
   Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
 Kokkos::Timer timer;
 Kokkos::View<int*> counter("Counter",1);
+Kokkos::View<int*> indices("Indices",v.extent(0)*v.extent(1));
 Kokkos::deep_copy(counter,0);
 // Run Atomic Loop not r is already using atomics by default
 Kokkos::parallel_for("Atomic Loop", v.extent(0), 
  KOKKOS_LAMBDA(const int i) {
  for(int j=0; j<v.extent(1); j++) {
-  if (j%5==0)
-  {
     const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
-  }
    r(v(i,j))++;
+    indices(idx) = v(i,j);
  }
 });
 // Wait for Kernel to finish before timing
