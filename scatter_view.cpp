@@ -79,7 +79,7 @@ Kokkos::deep_copy(counter,0);
 //     r(v(i,j))++;
 //  }
 // });
-Kokkos::parallel_for("Atomic Loop", 10000000, 
+Kokkos::parallel_for("Atomic Loop", 100000000, 
  KOKKOS_LAMBDA(const int i) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
 });
