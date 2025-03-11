@@ -82,6 +82,9 @@ int main(int argc, char* argv[]) {
     double time_scatter_view = scatter_view_loop(values,results);
     std::cout << "Time ScatterView: " << N << " " << M << " " << time_scatter_view << std::endl;
 
+    double time_atomic_add_loop = atomic_add_loop(values,results);
+    std::cout << "Time AtomicAddView: " << N << " " << M << " " << time_atomic_add_loop << std::endl;
+
   }
   Kokkos::finalize();
 }
