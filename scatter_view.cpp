@@ -1,5 +1,6 @@
 #include<Kokkos_Core.hpp>
 #include<Kokkos_ScatterView.hpp>
+#include <Kokkos_StdAlgorithms.hpp>
 
 #include <iostream> // for std::cout
 
