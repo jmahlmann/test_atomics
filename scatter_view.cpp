@@ -45,7 +45,7 @@ double atomic_addif_loop(Kokkos::View<int**> v,
   Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
 Kokkos::Timer timer;
 Kokkos::View<long int*> counter("Counter",1);
-Kokkos::parallel_for("Atomic Loop", 1000, 
+Kokkos::parallel_for("Atomic Loop", 100000, 
  KOKKOS_LAMBDA(const long int i) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
 });
@@ -59,7 +59,7 @@ double atomic_add_loop(Kokkos::View<int**> v,
   Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
 Kokkos::Timer timer;
 Kokkos::View<int*> counter("Counter",1);
-Kokkos::parallel_for("Atomic Loop", 1000, 
+Kokkos::parallel_for("Atomic Loop", 100000, 
  KOKKOS_LAMBDA(const int i) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
 });
