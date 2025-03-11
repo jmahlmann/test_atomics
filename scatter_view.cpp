@@ -71,13 +71,17 @@ Kokkos::View<int*> counter("Counter",1);
 Kokkos::View<int*> indices("Indices",v.extent(0)*v.extent(1));
 Kokkos::deep_copy(counter,0);
 // Run Atomic Loop not r is already using atomics by default
-Kokkos::parallel_for("Atomic Loop", v.extent(0), 
+// Kokkos::parallel_for("Atomic Loop", v.extent(0), 
+//  KOKKOS_LAMBDA(const int i) {
+//  for(int j=0; j<v.extent(1); j++) {
+//       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
+//       indices(idx) = v(i,j);
+//     r(v(i,j))++;
+//  }
+// });
+Kokkos::parallel_for("Atomic Loop", 10000000, 
  KOKKOS_LAMBDA(const int i) {
- for(int j=0; j<v.extent(1); j++) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
-      indices(idx) = v(i,j);
-    r(v(i,j))++;
- }
 });
 // Wait for Kernel to finish before timing
 Kokkos::fence();
