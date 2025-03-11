@@ -44,19 +44,10 @@ return timer.seconds();
 double atomic_addif_loop(Kokkos::View<int**> v, 
   Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
 Kokkos::Timer timer;
-Kokkos::View<int*> counter("Counter",1);
-Kokkos::View<int*> indices("Indices",v.extent(0)*v.extent(1));
-Kokkos::deep_copy(counter,0);
-// Run Atomic Loop not r is already using atomics by default
-Kokkos::parallel_for("Atomic Loop", v.extent(0), 
+Kokkos::View<long int*> counter("Counter",1);
+Kokkos::parallel_for("Atomic Loop", 1000, 
  KOKKOS_LAMBDA(const int i) {
- for(int j=0; j<v.extent(1); j++) {
-    if(j*i%3==0) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
-      indices(idx) = v(i,j);
-    }
-    r(v(i,j))++;
- }
 });
 // Wait for Kernel to finish before timing
 Kokkos::fence();
@@ -68,18 +59,7 @@ double atomic_add_loop(Kokkos::View<int**> v,
   Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
 Kokkos::Timer timer;
 Kokkos::View<int*> counter("Counter",1);
-Kokkos::View<int*> indices("Indices",v.extent(0)*v.extent(1));
-Kokkos::deep_copy(counter,0);
-// Run Atomic Loop not r is already using atomics by default
-// Kokkos::parallel_for("Atomic Loop", v.extent(0), 
-//  KOKKOS_LAMBDA(const int i) {
-//  for(int j=0; j<v.extent(1); j++) {
-//       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
-//       indices(idx) = v(i,j);
-//     r(v(i,j))++;
-//  }
-// });
-Kokkos::parallel_for("Atomic Loop", 100000000, 
+Kokkos::parallel_for("Atomic Loop", 1000, 
  KOKKOS_LAMBDA(const int i) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
 });
@@ -105,11 +85,11 @@ int main(int argc, char* argv[]) {
 
     Kokkos::deep_copy(values,values_h);
 
-    double time_atomic = atomic_loop(values,results);
-    std::cout << "Time Atomic: " << N << " " << M << " " << time_atomic << std::endl;
+    // double time_atomic = atomic_loop(values,results);
+    // std::cout << "Time Atomic: " << N << " " << M << " " << time_atomic << std::endl;
 
-    double time_scatter_view = scatter_view_loop(values,results);
-    std::cout << "Time ScatterView: " << N << " " << M << " " << time_scatter_view << std::endl;
+    // double time_scatter_view = scatter_view_loop(values,results);
+    // std::cout << "Time ScatterView: " << N << " " << M << " " << time_scatter_view << std::endl;
 
     double time_atomic_add_loop = atomic_add_loop(values,results);
     std::cout << "Time AtomicAddView: " << N << " " << M << " " << time_atomic_add_loop << std::endl;
