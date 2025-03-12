@@ -33,7 +33,7 @@ return timer.seconds();
 // Scatter Add algorithm using atomic add
 double atomic_longlongint_loop() {
 Kokkos::Timer timer;
-Kokkos::View<long long int*> counter("Counter",1);
+Kokkos::View<unsigned long long int*> counter("Counter",1);
 Kokkos::parallel_for("Atomic Loop", 1000000, 
  KOKKOS_LAMBDA(const int i) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
