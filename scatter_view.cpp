@@ -44,7 +44,7 @@ return timer.seconds();
 double atomic_addif_loop(Kokkos::View<int**> v, 
   Kokkos::View<int*,Kokkos::MemoryTraits<Kokkos::Atomic>> r) {
 Kokkos::Timer timer;
-Kokkos::View<long int*> counter("Counter",1);
+Kokkos::View<double*> counter("Counter",1);
 Kokkos::parallel_for("Atomic Loop", 1000000, 
  KOKKOS_LAMBDA(const int i) {
       const auto idx = Kokkos::atomic_fetch_add(&counter(0),1);
