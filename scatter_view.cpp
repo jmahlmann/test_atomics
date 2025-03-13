@@ -1,6 +1,7 @@
 #include<Kokkos_Core.hpp>
 #include<Kokkos_ScatterView.hpp>
 #include <Kokkos_StdAlgorithms.hpp>
+#include <chrono>     
 
 #include <iostream> // for std::cout
 
@@ -86,25 +87,68 @@ int main(int argc, char* argv[]) {
   Kokkos::initialize(argc,argv);
   {
 
+      std::chrono::time_point<std::chrono::system_clock> start, end;
+ 
+   
+      // std::chrono::duration<double> elapsed_seconds = end - start;
+      // std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+   
+      // std::cout << "finished computation at " << std::ctime(&end_time)
+      //           << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
+    start = std::chrono::system_clock::now();
     double time_loop = atomic_int_loop();
     std::cout << "Time AtomicInt: " << time_loop << std::endl;
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "finished computation at " << std::ctime(&end_time)
+                << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
+    start = std::chrono::system_clock::now();
     time_loop = atomic_int32_loop();
     std::cout << "Time AtomicInt32: " << time_loop << std::endl;
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "finished computation at " << std::ctime(&end_time)
+                << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
+    start = std::chrono::system_clock::now();
     time_loop = atomic_int64_loop();
     std::cout << "Time AtomicInt64: " << time_loop << std::endl;
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "finished computation at " << std::ctime(&end_time)
+                << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
+    start = std::chrono::system_clock::now();
     time_loop = atomic_longint_loop();
     std::cout << "Time AtomicLongInt: " << time_loop << std::endl;
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "finished computation at " << std::ctime(&end_time)
+                << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
+    start = std::chrono::system_clock::now();
     time_loop = atomic_longlongint_loop();
     std::cout << "Time AtomicLongLongInt: " << time_loop << std::endl;
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "finished computation at " << std::ctime(&end_time)
+                << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
+    start = std::chrono::system_clock::now();
     time_loop = atomic_double_loop();
     std::cout << "Time AtomicDouble: " << time_loop << std::endl;
-
+    end = std::chrono::system_clock::now();
+    std::chrono::duration<double> elapsed_seconds = end - start;
+    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    std::cout << "finished computation at " << std::ctime(&end_time)
+                << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
   }
   Kokkos::finalize();
