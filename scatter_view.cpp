@@ -110,7 +110,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Time AtomicInt32: " << time_loop << std::endl;
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    end_time = std::chrono::system_clock::to_time_t(end);
     std::cout << "finished computation at " << std::ctime(&end_time)
                 << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
@@ -119,7 +119,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Time AtomicInt64: " << time_loop << std::endl;
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    end_time = std::chrono::system_clock::to_time_t(end);
     std::cout << "finished computation at " << std::ctime(&end_time)
                 << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
@@ -128,7 +128,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Time AtomicLongInt: " << time_loop << std::endl;
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    end_time = std::chrono::system_clock::to_time_t(end);
     std::cout << "finished computation at " << std::ctime(&end_time)
                 << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
@@ -137,7 +137,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Time AtomicLongLongInt: " << time_loop << std::endl;
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    end_time = std::chrono::system_clock::to_time_t(end);
     std::cout << "finished computation at " << std::ctime(&end_time)
                 << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
@@ -146,7 +146,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Time AtomicDouble: " << time_loop << std::endl;
     end = std::chrono::system_clock::now();
     std::chrono::duration<double> elapsed_seconds = end - start;
-    std::time_t end_time = std::chrono::system_clock::to_time_t(end);
+    end_time = std::chrono::system_clock::to_time_t(end);
     std::cout << "finished computation at " << std::ctime(&end_time)
                 << "elapsed time: " << elapsed_seconds.count() << "s\n";
 
