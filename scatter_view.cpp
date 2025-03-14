@@ -87,7 +87,8 @@ int main(int argc, char* argv[]) {
   Kokkos::initialize(argc,argv);
   {
 
-      std::chrono::time_point<std::chrono::system_clock> start, end;
+      // std::chrono::time_point<std::chrono::system_clock> start, end;
+      double start, end;
  
    
       // std::chrono::duration<double> elapsed_seconds = end - start;
